@@ -1,4 +1,5 @@
 ﻿using System;
+using BankSystem.Controller;
 
 namespace BankSystem
 {
@@ -6,7 +7,7 @@ namespace BankSystem
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-        }
+            View.InputOutput.menu();
+            }
     }
 }

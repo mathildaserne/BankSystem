@@ -4,11 +4,12 @@ using System.Text;
 
 namespace BankSystem.Model
     {
-    class Admin
+   public class Admin
         {
-        public double Balance { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+        public double Balance { get; set; }
+        public double Salary { get; set; }
         public string Role { get; set; }
         }
     }
