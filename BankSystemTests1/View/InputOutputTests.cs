@@ -9,10 +9,7 @@ namespace BankSystem.View.Tests
     [TestClass()]
     public class InputOutputTests
         {
-        [TestMethod()]
-        public void menuTest()
-            {
-            Assert.Fail();
-            }
+       
+        
         }
     }
