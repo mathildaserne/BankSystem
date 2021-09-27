@@ -17,7 +17,7 @@ namespace BankSystem.Controller
             string role = Console.ReadLine();
             Console.Write("Lön: ");
             double salary = double.Parse(Console.ReadLine());
-
+         
             User.userBank.Insert(0,
                 new User() { UserName = userName,Password = password,Salary = salary,Role = role });
             }
