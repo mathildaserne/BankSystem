@@ -25,9 +25,10 @@ namespace BankSystem.Controller
         public List<User> userList()
             {
             User.userBank.Add(new User()
-                { UserName = "zia",Password = "zia123",Balance = 10000,Salary = 400000,Role = "Backende" });
-            User.userBank.Add(new User()
                 { UserName = "mathilda",Password = "mathilda123",Balance = 1000,Salary = 380000,Role = "Frontend" });
+            User.userBank.Add(new User()
+                { UserName = "zia",Password = "zia123",Balance = 10000,Salary = 400000,Role = "Backende" });
+            
             return User.userBank;
             }
 
@@ -48,7 +49,16 @@ namespace BankSystem.Controller
 
         public static void changeRoleSalary()
             {
-
+            Console.Write("Usernamn: ");
+            string userName = Console.ReadLine();
+            Console.Write("Password: ");
+            string password = Console.ReadLine();
+            Console.WriteLine("Role som du vill byta till");
+            string role = Console.ReadLine();
+            Console.WriteLine("Lön som du vill byta till");
+            double salary = double.Parse(Console.ReadLine());
+            User.userBank.Add(new User()
+                { UserName = userName,Password = password,Salary = salary,Role = role });
             }
         }
     }

@@ -42,6 +42,7 @@ namespace BankSystem.View
                 else if (userInput == 3)
                     {
                     loop = false;
+                    break;
                     }
                 else
                     {
@@ -92,17 +93,17 @@ namespace BankSystem.View
 
             for (int i = 0; i < userBank.Count; i++)
                 {
-
-                if (userBank[i].UserName == nameChk && User.userBank[i].Password == passwordChk)
+                if (!(userBank[i].UserName == nameChk) && !(User.userBank[i].Password == passwordChk))
+                    {
+                    Console.WriteLine("Konto finns inte med");
+                    }
+                else if (userBank[i].UserName == nameChk && User.userBank[i].Password == passwordChk)
                     {
                     Console.Clear();
                     Console.WriteLine("Välkomen " + nameChk);
                     userMenu(nameChk);
                     }
-                else if (!(userBank[i].UserName != nameChk && !(User.userBank[i].Password == passwordChk)))
-                    {
-                    Console.WriteLine("Konto finns inte med");
-                    }
+
                 else
                     {
                     intControllar();
@@ -148,6 +149,7 @@ namespace BankSystem.View
                 else if (userInput == 5)
                     {
                     loop = false;
+                    break;
                     }
                 else
                     {
@@ -159,15 +161,15 @@ namespace BankSystem.View
         public static void userMenu(string nameChk)
             {
             var userloop = true;
+            Console.WriteLine("Vänligen välja en funktion\n\n" +
+               "[1] Konto Lön Roll\n" +
+               "[2] Tabor konto\n" +
+               "[3] Byta roll & lön\n" +
+               "[4] Logga ut\n");
+            var userInput = intControllar();
+
             while (userloop)
                 {
-                Console.WriteLine("Vänligen välja en funktion\n\n" +
-                       "[1] Konto Lön Roll\n" +
-                       "[2] Tabor konto\n" +
-                       "[3] Byta roll & lön\n" +
-                       "[4] Logga ut\n");
-                var userInput = intControllar();
-
                 if (userInput == 1)
                     {
                     foreach (var item in userBank)
@@ -186,8 +188,10 @@ namespace BankSystem.View
                     Controller.Account.changeRoleSalary();
                 else if (userInput == 4)
                     {
+                    
+                    Console.WriteLine("Välkomen åter!");
+                    //break;
                     userloop = false;
-                    break;
                     }
                 else
                     {
@@ -211,45 +215,51 @@ namespace BankSystem.View
                     {
                     Console.WriteLine($"Usernamn:\t {userBank[i].UserName} \nLön:\t {userBank[i].Salary} \nRoll:\t {userBank[i].Role}");
                     }
-                else
+                else if (!(userBank[i].UserName == name))
                     {
                     Console.WriteLine(name + " är inte med");
                     adminMenu();
                     }
-                var loop = true;
-                while (loop)
+                //var loop = true;
+                //while (loop)
+                //{
+
+                Console.WriteLine("Vänligen välja en funktion\n\n" +
+                               "[1] Se begäran \n" +
+                               "[2] Ta bort konto \n" +
+                               "[3] Aktuella användare lösenord \n" +
+                               "[4] Start meny \n");
+                var userInput = intControllar();
+                if (userInput != 1 && userInput != 2 && userInput != 3 && userInput != 4)
                     {
-
-                    Console.WriteLine("Vänligen välja en funktion\n\n" +
-                                   "[1] Se begäran \n" +
-                                   "[2] Ta bort konto \n" +
-                                   "[3] Aktuella användare lösenord \n" +
-                                   "[4] Start meny \n");
-                    var userInput = intControllar();
-
-                    if (userInput == 1)
+                    intControllar();
+                    }
+                else if (userInput == 1)
+                    {
+                    Console.WriteLine("Se begärn");
+                    }
+                else if (userInput == 2)
+                    {
+                    Account.removeAccount();
+                    adminMenu();
+                    }
+                else if (userInput == 3)
+                    {
+                    for (int ix = 0; ix < userBank.Count; ix++)
                         {
-                        Console.WriteLine("Se begärn");
-                        }
-                    else if (userInput == 2)
-                        {
-                        Account.removeAccount();
-                        adminMenu();
-                        }
-                    else if (userInput == 3)
-                        {
-                        for (int ix = 0; ix < userBank.Count; ix++)
-                            {
-                            Console.WriteLine($"Usernamn:\t {userBank[ix].UserName} \nLönsenord \t {userBank[ix].Password}\n");
-                            }
-                        }
-
-                    else if (userInput == 4)
-                        {
-                        loop = false;
-                        adminMenu();
+                        Console.WriteLine($"Usernamn:\t {userBank[ix].UserName} \nLönsenord \t {userBank[ix].Password}\n");
                         }
                     }
+
+                else if (userInput == 4)
+                    {
+
+                    //loop = false;
+                    break;
+                    //adminMenu();
+                    }
+
+                //}
                 }
             }
         }
