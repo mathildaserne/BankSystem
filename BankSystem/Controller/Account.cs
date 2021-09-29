@@ -21,15 +21,11 @@ namespace BankSystem.Controller
             Console.Write("Kotonummer: ");
             string accoundNumber = Console.ReadLine();
 
-
-
             newList.Add(
                 new User { UserName = userName,Password = password,Role = role,Salary = salary,AccountNumber = accoundNumber });
 
             }
-
-
-        public void userList(List<User> myList)
+        public static void userList(List<User> myList)
             {
 
             myList.Add(new User
