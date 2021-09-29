@@ -8,26 +8,23 @@ namespace BankSystem.View
     {
     public class InputOutput
         {
+        public List<User> changeUserRoleSalary = new List<User>();
         public List<User> userBank = new List<User>();
+
         public InputOutput()
             {
             userBank.Add(new User
-                { UserName = "mathilda",Password = "mathilda123",Balance = 20000,Salary = 380000,Role = "Frontend" });
-
+                { UserName = "mathilda",Password = "mathilda123",Balance = 20000,Salary = 380000,Role = "Frontend",AccountNumber = "1212-1" });
             userBank.Add(new User
-                { UserName = "zia",Password = "zia123",Balance = 10000,Salary = 400000,Role = "Backende" });
+                { UserName = "zia",Password = "zia123",Balance = 10000,Salary = 400000,Role = "Backende",AccountNumber = "1212-2" });
             menu();
             }
-        public List<User> changeUserRole = new List<User>();
 
-        
-
-
-        public static int intControllar()
+        public int inputIntControllar()
             {
             int check;
-            while (!int.TryParse(Console.ReadLine(),out check))             //Kolla om input är inte int så-
-                {                                                           //skicka ett medalande att talet är inte int.
+            while (!int.TryParse(Console.ReadLine(),out check))
+                {
                 Console.WriteLine("Du har skrivt ett fel input försök igen.");
                 }
             return check;
@@ -42,7 +39,7 @@ namespace BankSystem.View
                     "[1] Logga in som Admin\n" +
                     "[2] Logga in som User\n" +
                     "[3] Stäng programmet");
-                var userInput = intControllar();
+                var userInput = inputIntControllar();
 
                 if (userInput == 1)
                     {
@@ -59,7 +56,7 @@ namespace BankSystem.View
                     }
                 else
                     {
-                    intControllar();
+                    inputIntControllar();
                     }
                 }
             }
@@ -103,48 +100,46 @@ namespace BankSystem.View
 
             for (int i = 0; i < userBank.Count; i++)
                 {
-                //for (int y = 0; y < account.Count; y++)
-                //    {
+
                 if (userBank[i].UserName != nameChk || userBank[i].Password != passwordChk)
                     {
                     Console.WriteLine("Konto finns inte med");
-                    //break;
                     }
-                else if (userBank[i].UserName == nameChk || userBank[i].Password == passwordChk)
+                else if (userBank[i].UserName == nameChk && userBank[i].Password == passwordChk)
                     {
                     Console.Clear();
                     Console.WriteLine("Välkomen " + nameChk);
-                    userMenu(nameChk);
+                    userMenu(nameChk,passwordChk);
                     }
                 else
                     {
-                    intControllar();
+                    inputIntControllar();
                     }
                 }
             }
 
-
         public void adminMenu()
             {
-            var admin = new List<Admin>() {
-                new Admin(){ UserName = "admin1", Password = "admin1234",Balance = 0, Salary = 50000, Role = "admin" }};
+            var admin = new List<Admin>(){
+              new Admin(){ UserName = "admin1", Password = "admin1234", AccountNumber = "123-123", Balance = 0, Salary = 50000, Role = "admin" }};
 
             var loop = true;
             while (loop)
                 {
-                Console.WriteLine("Vänligen välja en funktion\n\n" +
-                       "[1] Konto Lön Role\n" +
-                       "[2] Användar\n" +
+                Console.WriteLine("\nVänligen välja en funktion\n\n" +
+                       "[1] Kontonummer Saldo Lön Role\n" +
+                       "[2] Aktuella användare lösenord\n" +
                        "[3] Betala lön\n" +
                        "[4] Skapa ett nytt kont\n" +
                        "[5] Logga ut\n");
-                var userInput = intControllar();
+                var userInput = inputIntControllar();
 
                 if (userInput == 1)
                     {
                     foreach (var item in admin)
                         {
-                        Console.WriteLine($"Saldo:\t {item.Balance} \nLön:\t {item.Salary} \nRoll:\t {item.Role}");
+                        Console.WriteLine($"Kontonummer: \t{item.AccountNumber}\nSaldo:\t\t {item.Balance} " +
+                                          $"\nLön:\t\t {item.Salary} \nRoll:\t\t {item.Role}");
                         }
                     }
                 else if (userInput == 2)
@@ -158,7 +153,6 @@ namespace BankSystem.View
                 else if (userInput == 4)
                     {
                     Controller.Account.createAccount(userBank);
-
                     }
                 else if (userInput == 5)
                     {
@@ -167,166 +161,140 @@ namespace BankSystem.View
                     }
                 else
                     {
-                    intControllar();
+                    inputIntControllar();
                     }
                 }
             }
 
-        public void userMenu(string nameChk)
+        public void userMenu(string nameChk,string passwordChk)
             {
             var userloop = true;
             while (userloop)
                 {
-                Console.WriteLine("Vänligen välja en funktion\n\n" +
-               "[1] Konto Lön Roll\n" +
-               "[2] Tabor konto\n" +
+                Console.WriteLine("\nVänligen välja en funktion\n\n" +
+               "[1] Kontonummer & Saldo\n" +
+               "[2] Lön & Roll\n" +
                "[3] Byta roll & lön\n" +
-               "[4] Logga ut\n");
-                var userInput = intControllar();
+               "[4] Tabor konto\n" +
+               "[5] Logga ut\n");
+                var userInput = inputIntControllar();
 
                 if (userInput == 1)
                     {
-                    for (int i = 0; i < 1; i++)
+                    for (int i = 0; i < userBank.Count; i++)
                         {
-                        Console.WriteLine($"Usernamn:\t{userBank[i].UserName = nameChk}\nKontonummer:\t{userBank[i].AccountNumber}\nLön:\t\t{userBank[i].Salary}\nRoll:\t\t{userBank[i].Role}\n");
+                        if (userBank[i].UserName == nameChk && userBank[i].Password == passwordChk)
+                            {
+                            Console.WriteLine($"Kontonummer: \t{userBank[i].AccountNumber}\nSaldo: \t\t{userBank[i].Balance}");
+                            }
                         }
                     }
                 else if (userInput == 2)
                     {
-
-                    Account.removeAccount(userBank);
-                    menu();
+                    for (int i = 0; i < userBank.Count; i++)
+                        {
+                        if (userBank[i].UserName == nameChk && userBank[i].Password == passwordChk)
+                            {
+                            Console.WriteLine($"Lön:\t\t{userBank[i].Salary}\nRoll:\t\t{userBank[i].Role}");
+                            }
+                        }
                     }
                 else if (userInput == 3)
-
-                    Account.changeRoleSalary(changeUserRole);
-
+                    {
+                    Console.Write("Ny roll: ");
+                    string role = Console.ReadLine();
+                    Console.Write("Nytt lön: ");
+                    double salary = double.Parse(Console.ReadLine());
+                    changeUserRoleSalary.Add(new User()
+                        { UserName = nameChk,Password = passwordChk,Role = role,Salary = salary });
+                    }
                 else if (userInput == 4)
+                    {
+                    userBank.Remove(new User() { UserName = nameChk,Password = passwordChk });
+                    Console.WriteLine("Konto är borta");
+
+                    //Account.removeAccount(userBank);
+                    menu();
+                    }
+                else if (userInput == 5)
                     {
                     userloop = false;
                     Console.WriteLine("Välkomen åter!");
                     menu();
-                    }
-                else
-                    {
-                    intControllar();
                     }
                 }
             }
 
         public void userMenu()
             {
-            Console.Write("Ange användares namn: ");
-            string name = Console.ReadLine().ToLower();
 
-            for (int i = 0; i < userBank.Count; i++)
+            for (int ix = 0; ix < userBank.Count; ix++)
                 {
-                if (userBank[i].UserName != name)
-                    {
-                    Console.WriteLine(name + " är inte med");
-                    break;
-                    }
-                else if (userBank[i].UserName == name)
-                    {
-                    Console.WriteLine($"Usernamn:\t {userBank[i].UserName} \nLön:\t {userBank[i].Salary} \nRoll:\t {userBank[i].Role}");
-                    }
+                Console.WriteLine($"Usernamn:\t {userBank[ix].UserName} \nLönsenord \t {userBank[ix].Password}\n");
+                }
+            var loop = true;
+            while (loop)
+                {
+                Console.WriteLine("\nVänligen välja en funktion\n\n" +
+                           "[1] Se begäran \n" +
+                           "[2] Ta bort konto \n" +
+                           "[3] Start meny \n");
+                var userInput = inputIntControllar();
 
-                var loop = true;
-                while (loop)
+                if (userInput == 1)
                     {
-                    Console.WriteLine("Vänligen välja en funktion\n\n" +
-                               "[1] Se begäran \n" +
-                               "[2] Ta bort konto \n" +
-                               "[3] Aktuella användare lösenord \n" +
-                               "[4] Start meny \n");
-                    var userInput = intControllar();
-                    if (userInput != 1 && userInput != 2 && userInput != 3 && userInput != 4)
-                        {
-                        intControllar();
-                        }
-                    else if (userInput == 1)
-                        {
-                        changeRoleSalary();
-                        }
-                    else if (userInput == 2)
-                        {
-                        Account.removeAccount(userBank);
-                        adminMenu();
-                        }
-                    else if (userInput == 3)
-                        {
-                        for (int ix = 0; ix < userBank.Count; ix++)
-                            {
-                            if (userBank[ix].UserName == name)
-                                {
-                                Console.WriteLine($"Usernamn:\t {userBank[ix].UserName} \nLönsenord \t {userBank[ix].Password}\n");
-                                break;
-                                }
-                            }
-                        }
-                    else if (userInput == 4)
-                        {
-                        loop = false;
-                        adminMenu();
-                        }
+                    changeRoleSalary();
+                    }
+                else if (userInput == 2)
+                    {
+                    Account.removeAccount(userBank);
+                    adminMenu();
+                    }
+                else if (userInput == 3)
+                    {
+                    loop = false;
+                    adminMenu();
                     }
                 }
             }
 
         public void changeRoleSalary()
             {
-
-
             Console.Write("Usernamn: ");
-            string nameChk = Console.ReadLine();
+            string userChk = Console.ReadLine();
             Console.Write("Password: ");
             string passwordChk = Console.ReadLine();
 
-            for (int ix = 0; ix < changeUserRole.Count; ix++)
+            for (int ix = 0; ix < changeUserRoleSalary.Count; ix++)
                 {
-                if (changeUserRole[ix].UserName == nameChk && changeUserRole[ix].Password == passwordChk)
+
+                if (changeUserRoleSalary[ix].UserName == userChk && changeUserRoleSalary[ix].Password == passwordChk)
                     {
-                    Console.WriteLine($"Usernamn:\t {changeUserRole[ix].UserName} \nLön:\t {changeUserRole[ix].Salary} \nRoll:\t {changeUserRole[ix].Role}");
+                    Console.WriteLine($"Usernamn:\t {changeUserRoleSalary[ix].UserName} \n" +
+                                      $"Lön:\t {changeUserRoleSalary[ix].Salary} \n" +
+                                      $"Roll:\t {changeUserRoleSalary[ix].Role}");
+
                     Console.WriteLine("\n[1] För att tacka ja" +
-                        "\n[2] För att tacka nej");
-                    var answer = intControllar();
+                                      "\n[2] För att tacka nej");
+                    var answer = inputIntControllar();
+
                     if (answer == 1)
                         {
-                        //Account salaryRoleChange = new Account();
-                        //salaryRoleChange.changeRoleSalary(userBank);
-
-                        Console.WriteLine("Salary: ");
+                        Console.Write("Salary: ");
                         double salaryChk = double.Parse(Console.ReadLine());
-                        Console.WriteLine("Rolle: ");
+                        Console.Write("Rolle: ");
                         var roleChk = Console.ReadLine();
 
                         userBank.Add(
-                          new User { UserName = nameChk,Password = passwordChk,Role = roleChk,Salary = salaryChk });
+                          new User { UserName = userChk,Password = passwordChk,Role = roleChk,Salary = salaryChk });
                         Console.WriteLine("Du har tackat ja");
-
                         }
+
                     else if (answer == 2)
                         {
-                        //Console.WriteLine("Usernamn: ");
-                        //var nameChk = Console.ReadLine();
-                        //Console.WriteLine("Lösenord: ");
-                        //var passwordChk = Console.ReadLine();
-                        for (int y = 0; y < changeUserRole.Count; y++)
-                            {
-                            if (changeUserRole[y].UserName == nameChk && changeUserRole[y].Password == passwordChk)
-                                {
-                                changeUserRole.Remove(new User() { UserName = nameChk,Password = passwordChk });
-                                Console.WriteLine("Du har tackat nej");
-                                }
-                            }
-
-
+                        changeUserRoleSalary.Remove(new User() { UserName = userChk,Password = passwordChk });
+                        Console.WriteLine("Du har tackat nej");
                         }
-                    else
-                        {
-                        intControllar();
-                        }
-
                     }
                 }
             }
