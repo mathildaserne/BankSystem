@@ -10,7 +10,7 @@ namespace BankSystem.Model
         public string Password { get; set; }
         public double Balance { get; set; }
         public double Salary { get; set; }
+        public string AccountNumber { get; set; }
         public string Role { get; set; }
-        public static List<User> userBank = new List<User>();
         }
     }
