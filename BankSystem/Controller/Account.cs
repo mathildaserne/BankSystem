@@ -1,14 +1,11 @@
-﻿using System;
+﻿using BankSystem.Model;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using BankSystem.Model;
-using BankSystem.View;
 
 namespace BankSystem.Controller
     {
     public class Account
         {
-       
         public static void createAccount(List<User> newList)
             {
             Console.Write("Usernamn: ");
@@ -25,17 +22,26 @@ namespace BankSystem.Controller
             newList.Add(
                 new User { UserName = userName,Password = password,Role = role,Salary = salary,AccountNumber = accoundNumber });
             }
+
         public static void removeAccount(List<User> newList)
             {
             Console.Write("Usernamn: ");
             string userName = Console.ReadLine();
             Console.Write("Password: ");
             string password = Console.ReadLine();
-            newList.Remove(new User() { UserName = userName,Password = password });
+
+            for (int i = 0; i < newList.Count; i++)
+                {
+                if (newList[i].UserName == userName && newList[i].Password == password)
+                    {
+                    newList.RemoveAt(i);
+                    }
+                }
+
             Console.WriteLine("Konto är borta");
             }
 
-        public static void salary()
+        public static void salary(List<User> salaryList)
             {
             Console.Write("Ange namn på insättaren: ");
             var name = Console.ReadLine();
@@ -44,14 +50,13 @@ namespace BankSystem.Controller
             Console.Write("Ange insättningsbelopp: ");
             var dep = Convert.ToDouble(Console.ReadLine());
 
-            var user = new User();
-
-            if (user.UserName == name && user.AccountNumber == account)
+            for (int i = 0; i < salaryList.Count; i++)
                 {
-                var total = user.Balance + dep;
-                Console.WriteLine("Insättarens namn: " + name);
-                Console.WriteLine("Kontonummer: " + account);
-                Console.WriteLine("Totalt saldobelopp på kontot: " + total);
+                if (salaryList[i].UserName == name && salaryList[i].AccountNumber == account)
+                    {
+                    var total = salaryList[i].Balance + dep;
+                    salaryList[i].Balance = total;
+                    }
                 }
             }
         }
