@@ -14,9 +14,9 @@ namespace BankSystem.View
         public InputOutput()
             {
             userBank.Add(new User
-                { UserName = "mathilda",Password = "mathilda123",Balance = 20000,Salary = 380000,Role = "Frontend",AccountNumber = "1212-1" });
+                { UserName = "mathilda",Password = "mathilda123",Balance = 20000,Salary = 38000,Role = "Frontend",AccountNumber = "1212-1" });
             userBank.Add(new User
-                { UserName = "zia",Password = "zia123",Balance = 10000,Salary = 400000,Role = "Backende",AccountNumber = "1212-2" });
+                { UserName = "zia",Password = "zia123",Balance = 10000,Salary = 40000,Role = "Backende",AccountNumber = "1212-2" });
             menu();
             }
 

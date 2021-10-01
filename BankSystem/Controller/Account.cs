@@ -53,18 +53,21 @@ namespace BankSystem.Controller
 
             for (int i = 0; i < salaryList.Count; i++)
                 {
-                if (salary == salaryList[i].Salary)
+
+                if (salaryList[i].UserName == name && salaryList[i].AccountNumber == account)
                     {
-                    if (salaryList[i].UserName == name && salaryList[i].AccountNumber == account)
+                    if (salary == salaryList[i].Salary)
                         {
                         var total = salaryList[i].Balance + salary;
                         salaryList[i].Balance = total;
+                        Console.WriteLine("Lön är betalat...");
+                        }
+                    else
+                        {
+                        Console.WriteLine("Lönen stämmer inte");
                         }
                     }
-                else
-                    {
-                    Console.WriteLine("Lönen stämmer inte");
-                    }
+
                 }
             }
         }
