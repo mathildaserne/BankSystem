@@ -22,10 +22,11 @@ namespace BankSystem.Controller.Tests
 
             Assert.IsTrue(true,actual);
             }
+
         //public void IsUserNameNotString()
         //    {
         //    var userList = new User();
-        //    var actual = userList.UserName = "2,2";
+        //    var actual = userList.UserName = 222;
 
         //    Assert.IsTrue(true,actual);
         //    }

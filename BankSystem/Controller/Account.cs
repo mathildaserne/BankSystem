@@ -48,14 +48,22 @@ namespace BankSystem.Controller
             Console.Write("Ange kontonummer: ");
             var account = (Console.ReadLine());
             Console.Write("Ange insättningsbelopp: ");
-            var dep = Convert.ToDouble(Console.ReadLine());
+            var salary = Convert.ToDouble(Console.ReadLine());
+
 
             for (int i = 0; i < salaryList.Count; i++)
                 {
-                if (salaryList[i].UserName == name && salaryList[i].AccountNumber == account)
+                if (salary == salaryList[i].Salary)
                     {
-                    var total = salaryList[i].Balance + dep;
-                    salaryList[i].Balance = total;
+                    if (salaryList[i].UserName == name && salaryList[i].AccountNumber == account)
+                        {
+                        var total = salaryList[i].Balance + salary;
+                        salaryList[i].Balance = total;
+                        }
+                    }
+                else
+                    {
+                    Console.WriteLine("Lönen stämmer inte");
                     }
                 }
             }

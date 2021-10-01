@@ -68,7 +68,6 @@ namespace BankSystem.View
 
             Console.Write("Usernamn: ");
             string _userName = Console.ReadLine().ToLower();
-
             Console.Write("Lösenord: ");
             var _password = Console.ReadLine().ToLower();
 
@@ -127,7 +126,7 @@ namespace BankSystem.View
                 {
                 Console.WriteLine("\nVänligen välja en funktion\n\n" +
                        "[1] Kontonummer Saldo Lön Role\n" +
-                       "[2] Aktuella användare lösenord\n" +
+                       "[2] Aktuella användare lösenord Roll\n" +
                        "[3] Betala lön\n" +
                        "[4] Skapa ett nytt kont\n" +
                        "[5] Logga ut\n");
@@ -174,7 +173,7 @@ namespace BankSystem.View
                "[1] Kontonummer & Saldo\n" +
                "[2] Lön & Roll\n" +
                "[3] Byta roll & lön\n" +
-               "[4] Tabor konto\n" +
+               "[4] Tabort konto\n" +
                "[5] Logga ut\n");
                 var userInput = inputIntControllar();
 
@@ -225,34 +224,43 @@ namespace BankSystem.View
             {
             for (int ix = 0; ix < userBank.Count; ix++)
                 {
-                Console.WriteLine($"Usernamn:\t {userBank[ix].UserName} \nLönsenord \t {userBank[ix].Password}\n");
+                Console.WriteLine($"Usernamn:\t {userBank[ix].UserName} \nLönsenord \t {userBank[ix].Password}\nRoll: \t\t {userBank[ix].Role}\n");
                 }
             var loop = true;
             while (loop)
                 {
                 Console.WriteLine("\nVänligen välja en funktion\n\n" +
-                           "[1] Se begäran \n" +
-                           "[2] Ta bort konto \n" +
-                           "[3] Start meny \n");
+                           "[1] Kontonummer Saldo Lön \n" +
+                           "[2] Se begäran \n" +
+                           "[3] Ta bort konto \n" +
+                           "[4] Start meny \n");
                 var userInput = inputIntControllar();
 
                 if (userInput == 1)
                     {
+                    for (int ix = 0; ix < userBank.Count; ix++)
+                        {
+                        Console.WriteLine($"Username:\t{userBank[ix].UserName}\nKonotonummer:\t{userBank[ix].AccountNumber}\n" +
+                                          $"Saldo: \t\t{userBank[ix].Balance}\nLön: \t\t{userBank[ix].Salary}\n");
+                        }
+                    }
+
+                else if (userInput == 2)
+                    {
                     changeRoleSalary();
                     }
-                else if (userInput == 2)
+                else if (userInput == 3)
                     {
                     Account.removeAccount(userBank);
                     adminMenu();
                     }
-                else if (userInput == 3)
+                else if (userInput == 4)
                     {
                     loop = false;
                     adminMenu();
                     }
                 }
             }
-
         public void changeRoleSalary()
             {
             Console.Write("Usernamn: ");
