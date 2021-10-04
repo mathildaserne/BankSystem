@@ -1,4 +1,6 @@
-﻿using BankSystem.Model;
+﻿using BankSystem.View;
+using BankSystem.Model;
+using BankSystem.Controller;
 using System;
 using System.Collections.Generic;
 
@@ -35,39 +37,37 @@ namespace BankSystem.Controller
                 if (newList[i].UserName == userName && newList[i].Password == password)
                     {
                     newList.RemoveAt(i);
+                    Console.WriteLine("Konto är borta");
+                    }
+                else
+                    {
+                    Console.WriteLine("User finns inte med");
                     }
                 }
-
-            Console.WriteLine("Konto är borta");
             }
 
-        public static void salary(List<User> salaryList)
+        public static void Salary(List<User> salaryList)
             {
-            Console.Write("Ange namn på insättaren: ");
+         
+            Console.Write("Ange usernamn: ");
             var name = Console.ReadLine();
             Console.Write("Ange kontonummer: ");
             var account = (Console.ReadLine());
-            Console.Write("Ange insättningsbelopp: ");
-            var salary = Convert.ToDouble(Console.ReadLine());
-
+            Console.Write("Ange lön: ");
+            double salary = InputsController.inputDoubleControllar();
 
             for (int i = 0; i < salaryList.Count; i++)
                 {
-
-                if (salaryList[i].UserName == name && salaryList[i].AccountNumber == account)
+                if (salaryList[i].UserName == name && salaryList[i].AccountNumber == account && salaryList[i].Salary == salary)
                     {
-                    if (salary == salaryList[i].Salary)
-                        {
-                        var total = salaryList[i].Balance + salary;
-                        salaryList[i].Balance = total;
-                        Console.WriteLine("Lön är betalat...");
-                        }
-                    else
-                        {
-                        Console.WriteLine("Lönen stämmer inte");
-                        }
+                    var total = salaryList[i].Balance + salary;
+                    salaryList[i].Balance = total;
+                    Console.WriteLine($"{name}s lön är betalat...");
                     }
-
+                else
+                    {
+                    Console.WriteLine("Fel införmation.");
+                    }
                 }
             }
         }

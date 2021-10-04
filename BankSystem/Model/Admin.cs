@@ -10,7 +10,5 @@ namespace BankSystem.Model
         public double Balance { get; set; }
         public double Salary { get; set; }
         public string Role { get; set; }
-
-        public static List<Admin> adminBank = new List<Admin>();
         }
     }

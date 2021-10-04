@@ -10,6 +10,7 @@ namespace BankSystem.View
         {
         public List<User> changeUserRoleSalary = new List<User>();
         public List<User> userBank = new List<User>();
+        private InputsController intController = new InputsController();
 
         public InputOutput()
             {
@@ -18,16 +19,6 @@ namespace BankSystem.View
             userBank.Add(new User
                 { UserName = "zia",Password = "zia123",Balance = 10000,Salary = 40000,Role = "Backende",AccountNumber = "1212-2" });
             menu();
-            }
-
-        public int inputIntControllar()
-            {
-            int check;
-            while (!int.TryParse(Console.ReadLine(),out check))
-                {
-                Console.WriteLine("Du har skrivt ett fel input försök igen.");
-                }
-            return check;
             }
 
         public void menu()
@@ -39,7 +30,7 @@ namespace BankSystem.View
                     "[1] Logga in som Admin\n" +
                     "[2] Logga in som User\n" +
                     "[3] Stäng programmet");
-                var userInput = inputIntControllar();
+                var userInput = InputsController.inputIntControllar();
 
                 if (userInput == 1)
                     {
@@ -56,7 +47,7 @@ namespace BankSystem.View
                     }
                 else
                     {
-                    inputIntControllar();
+                    InputsController.inputIntControllar();
                     }
                 }
             }
@@ -111,7 +102,7 @@ namespace BankSystem.View
                     }
                 else
                     {
-                    inputIntControllar();
+                    InputsController.inputIntControllar();
                     }
                 }
             }
@@ -130,7 +121,7 @@ namespace BankSystem.View
                        "[3] Betala lön\n" +
                        "[4] Skapa ett nytt kont\n" +
                        "[5] Logga ut\n");
-                var userInput = inputIntControllar();
+                var userInput = InputsController.inputIntControllar();
 
                 if (userInput == 1)
                     {
@@ -146,7 +137,7 @@ namespace BankSystem.View
                     }
                 else if (userInput == 3)
                     {
-                    Controller.Account.salary(userBank);
+                    Controller.Account.Salary(userBank);
                     }
                 else if (userInput == 4)
                     {
@@ -159,7 +150,7 @@ namespace BankSystem.View
                     }
                 else
                     {
-                    inputIntControllar();
+                    InputsController.inputIntControllar();
                     }
                 }
             }
@@ -175,7 +166,7 @@ namespace BankSystem.View
                "[3] Byta roll & lön\n" +
                "[4] Tabort konto\n" +
                "[5] Logga ut\n");
-                var userInput = inputIntControllar();
+                var userInput = InputsController.inputIntControllar();
 
                 if (userInput == 1)
                     {
@@ -205,6 +196,7 @@ namespace BankSystem.View
                     double salary = double.Parse(Console.ReadLine());
                     changeUserRoleSalary.Add(new User()
                         { UserName = nameChk,Password = passwordChk,Role = role,Salary = salary });
+                    Console.WriteLine("Vänta på svar från Admin.");
                     }
                 else if (userInput == 4)
                     {
@@ -234,7 +226,7 @@ namespace BankSystem.View
                            "[2] Se begäran \n" +
                            "[3] Ta bort konto \n" +
                            "[4] Start meny \n");
-                var userInput = inputIntControllar();
+                var userInput = InputsController.inputIntControllar();
 
                 if (userInput == 1)
                     {
@@ -244,7 +236,6 @@ namespace BankSystem.View
                                           $"Saldo: \t\t{userBank[ix].Balance}\nLön: \t\t{userBank[ix].Salary}\n");
                         }
                     }
-
                 else if (userInput == 2)
                     {
                     changeRoleSalary();
@@ -261,6 +252,7 @@ namespace BankSystem.View
                     }
                 }
             }
+
         public void changeRoleSalary()
             {
             Console.Write("Usernamn: ");
@@ -278,7 +270,7 @@ namespace BankSystem.View
 
                     Console.WriteLine("\n[1] För att tacka ja" +
                                       "\n[2] För att tacka nej");
-                    var answer = inputIntControllar();
+                    var answer = InputsController.inputIntControllar();
 
                     if (answer == 1)
                         {
@@ -287,7 +279,7 @@ namespace BankSystem.View
                         Console.Write("Password: ");
                         string password = Console.ReadLine();
                         Console.Write("Salary: ");
-                        double salaryChk = double.Parse(Console.ReadLine());
+                        double salaryChk = InputsController.inputDoubleControllar();
                         Console.Write("Rolle: ");
                         string roleChk = Console.ReadLine();
 
