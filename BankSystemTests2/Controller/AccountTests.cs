@@ -11,26 +11,39 @@ using BankSystem.Model;
 namespace BankSystem.Controller.Tests
     {
 
+
     [TestClass()]
     public class AccountTests
         {
-        [TestMethod()]
+        public User RemoveAccount()
+            {
+            var userBank = new User();
+            new User
+                { UserName = "zia",Password = "zia123",Balance = 10000,Salary = 40000,Role = "Backende",AccountNumber = "1212-2" };
+            return userBank;
+            }
+
+        [TestMethod()]   // CreateAccount test
         public void IsUserNameString()
             {
             var userList = new User();
-            var actual = userList.UserName = "";
+            var actual = userList.UserName = "Zia";
 
             Assert.IsTrue(true,actual);
             }
 
-        //public void IsUserNameNotString()
-        //    {
-        //    var userList = new User();
-        //    var actual = userList.UserName = 222;
+        [TestMethod()] // CreateAccount test
+        public void IsUserNameNumber()  // Den ska fixas att den tar int.
+            {
+            var userList = new User();
+            var actual = userList.UserName = "222";
 
-        //    Assert.IsTrue(true,actual);
-        //    }
-        [TestMethod()]
+            Assert.IsTrue(true,actual);
+            }
+
+
+
+        [TestMethod()] // CreateAccount test
         public void IsPasswordString()
             {
             var userList = new User();
@@ -39,22 +52,60 @@ namespace BankSystem.Controller.Tests
             Assert.IsTrue(true,actual);
             }
 
-        //[TestMethod()]
+        //[TestMethod()] // CreateAccount test
         //public void IsSalareDouble()
         //    {
         //    var userList = new User();
-        //     double actual = userList.Salary = 10.10;
+        //    double actual = userList.Salary = 10.10;
         //    double expected = double;
-        //    Assert.AreEqual(expected, actual);
+        //    Assert.AreEqual(expected,actual);
         //    }
 
-        [TestMethod()]
+        [TestMethod()]  // CreateAccount test
         public void IsRoleString()
             {
             var userList = new User();
             var actual = userList.Role = "";
 
             Assert.IsTrue(true,actual);
+            }
+
+
+        [TestMethod()] // RemoveAccount test
+        public void IfUserNotExcist()
+            {
+            var userBank = new User();
+            
+            var actual =  new User
+                { UserName = "mathilda"};
+                Assert.AreNotEqual(userBank.UserName = "alex",actual);
+            }
+
+        [TestMethod()] // RemoveAccount test
+        public void IfUserIsWrong()
+            {
+            var userBank = new User();
+
+            var actual = new User
+                { UserName = "mathilda"};
+            Assert.AreNotEqual(userBank.UserName = "matild",actual);
+            }
+        
+        [TestMethod()] // RemoveAccount test
+        public void IfUserHasNumber()
+            {
+            var userBank = new User();
+            var actual = new User(){ UserName = "mathilda"};
+            Assert.AreNotEqual(userBank.UserName = "mathilda11",actual);
+            }
+
+        [TestMethod()] // RemoveAccount test
+        public void IfPasswordIsExist()
+            {
+            var userBank = RemoveAccount();
+            var actual = userBank.Password = "zia123";
+            var expected = RemoveAccount();
+            Assert.AreNotEqual(expected,actual);
             }
         }
     }

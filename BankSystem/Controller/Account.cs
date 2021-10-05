@@ -17,10 +17,10 @@ namespace BankSystem.Controller
             Console.Write("Rolle: ");
             string role = Console.ReadLine();
             Console.Write("Lön: ");
-            double salary = double.Parse(Console.ReadLine());
+            double salary = InputsController.inputDoubleControllar();
             Console.Write("Kotonummer: ");
             string accoundNumber = Console.ReadLine();
-
+            
             newList.Add(
                 new User { UserName = userName,Password = password,Role = role,Salary = salary,AccountNumber = accoundNumber });
             }
@@ -31,18 +31,19 @@ namespace BankSystem.Controller
             string userName = Console.ReadLine();
             Console.Write("Password: ");
             string password = Console.ReadLine();
-
+            var loop = true;
             for (int i = 0; i < newList.Count; i++)
                 {
                 if (newList[i].UserName == userName && newList[i].Password == password)
                     {
                     newList.RemoveAt(i);
                     Console.WriteLine("Konto är borta");
+                    loop = false;
                     }
-                else
-                    {
-                    Console.WriteLine("User finns inte med");
-                    }
+                }
+            if (loop)
+                {
+                Console.WriteLine("User finns inte med");
                 }
             }
         public static void Salary(List<User> salaryList)
