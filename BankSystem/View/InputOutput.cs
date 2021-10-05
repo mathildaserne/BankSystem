@@ -8,9 +8,45 @@ namespace BankSystem.View
     {
     public class InputOutput
         {
+        public void Logo()
+            {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("========================================================================================================================\n");
+            Console.WriteLine("                             * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");
+            Console.WriteLine("                             *  # # # # # # # # # # # # # # # # # # # # # # # # # # #  *");
+            Console.WriteLine("                             *  #                                                   #  *");
+            Console.WriteLine("                             *  #            Välkommen till BankSystem...           #  *");
+            Console.WriteLine("                             *  #                                                   #  *");
+            Console.WriteLine("                             *  # # # # # # # # # # # # # # # # # # # # # # # # # # #  *");
+            Console.WriteLine("                             * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
+            Console.WriteLine("========================================================================================================================\n");
+            Console.ForegroundColor = ConsoleColor.White;
+            }
+        public void displayLogo(string meddelande)
+            {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("=======================================================================================================================\n");
+            Console.WriteLine("                             * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");
+            Console.WriteLine("                             *  # # # # # # # # # # # # # # # # # # # # # # # # # # #  *");
+            Console.WriteLine("                             *  #                                                   #  *");
+            Console.Write("                             *  #");
+            for (int i = 0; i < (51 - meddelande.Length) / 2; i++)
+                Console.Write(" ");
+            Console.Write(meddelande);
+            for (int i = 0; i < (52 - meddelande.Length) / 2; i++)
+                Console.Write(" ");
+            Console.WriteLine("#  *");
+            Console.WriteLine("                             *  #                                                   #  *");
+            Console.WriteLine("                             *  # # # # # # # # # # # # # # # # # # # # # # # # # # #  *");
+            Console.WriteLine("                             * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");
+            Console.WriteLine();
+            Console.WriteLine("=======================================================================================================================\n");
+            Console.ForegroundColor = ConsoleColor.White;
+
+            }
+
         public List<User> changeUserRoleSalary = new List<User>();
         public List<User> userBank = new List<User>();
-        private InputsController intController = new InputsController();
 
         public InputOutput()
             {
@@ -18,6 +54,7 @@ namespace BankSystem.View
                 { UserName = "mathilda",Password = "mathilda123",Balance = 20000,Salary = 38000,Role = "Frontend",AccountNumber = "1212-1" });
             userBank.Add(new User
                 { UserName = "zia",Password = "zia123",Balance = 10000,Salary = 40000,Role = "Backende",AccountNumber = "1212-2" });
+            Logo();
             menu();
             }
 
@@ -26,6 +63,7 @@ namespace BankSystem.View
             var loop = true;
             while (loop)
                 {
+
                 Console.WriteLine("Vänligen välja en funktion\n\n" +
                     "[1] Logga in som Admin\n" +
                     "[2] Logga in som User\n" +
@@ -43,6 +81,8 @@ namespace BankSystem.View
                 else if (userInput == 3)
                     {
                     loop = false;
+                    Console.Clear();
+                    displayLogo("Välkommen åter");
                     System.Environment.Exit(1);
                     }
                 else
@@ -67,7 +107,7 @@ namespace BankSystem.View
                 if (_password == password)
                     {
                     Console.Clear();
-                    Console.WriteLine("Välkomen Admin");
+                    displayLogo("Välkomen Admin");
                     adminMenu();
                     }
                 else
@@ -87,23 +127,20 @@ namespace BankSystem.View
             string nameChk = Console.ReadLine();
             Console.Write("Lösenord: ");
             string passwordChk = Console.ReadLine();
-
+            var loop = true;
             for (int i = 0; i < userBank.Count; i++)
                 {
-                if (userBank[i].UserName != nameChk || userBank[i].Password != passwordChk)
-                    {
-                    Console.WriteLine("Konto finns inte med");
-                    }
-                else if (userBank[i].UserName == nameChk && userBank[i].Password == passwordChk)
+                if (userBank[i].UserName == nameChk && userBank[i].Password == passwordChk)
                     {
                     Console.Clear();
-                    Console.WriteLine("Välkomen " + nameChk);
+                    displayLogo("Välkommen " + nameChk);
                     userMenu(nameChk,passwordChk);
+                    loop = false;
                     }
-                else
-                    {
-                    InputsController.inputIntControllar();
-                    }
+                }
+            if (loop)
+                {
+                Console.WriteLine("Konto finns inte med");
                 }
             }
 
@@ -146,6 +183,8 @@ namespace BankSystem.View
                 else if (userInput == 5)
                     {
                     loop = false;
+                    Console.Clear();
+                    Logo();
                     menu();
                     }
                 else
@@ -193,7 +232,7 @@ namespace BankSystem.View
                     Console.Write("Ny roll: ");
                     string role = Console.ReadLine();
                     Console.Write("Nytt lön: ");
-                    double salary = double.Parse(Console.ReadLine());
+                    double salary = InputsController.inputDoubleControllar();
                     changeUserRoleSalary.Add(new User()
                         { UserName = nameChk,Password = passwordChk,Role = role,Salary = salary });
                     Console.WriteLine("Vänta på svar från Admin.");
@@ -207,6 +246,8 @@ namespace BankSystem.View
                     {
                     userloop = false;
                     Console.WriteLine("Välkomen åter!");
+                    Console.Clear();
+                    Logo();
                     menu();
                     }
                 }
@@ -269,7 +310,8 @@ namespace BankSystem.View
                                       $"Roll:\t {changeUserRoleSalary[ix].Role}");
 
                     Console.WriteLine("\n[1] För att tacka ja" +
-                                      "\n[2] För att tacka nej");
+                                      "\n[2] För att tacka nej" +
+                                      "\n[3] För att svara senare");
                     var answer = InputsController.inputIntControllar();
 
                     if (answer == 1)
@@ -296,8 +338,12 @@ namespace BankSystem.View
                         }
                     else if (answer == 2)
                         {
-                        changeUserRoleSalary.Remove(new User() { UserName = userChk,Password = passwordChk });
                         Console.WriteLine("Du har tackat nej");
+                        changeUserRoleSalary.RemoveAt(ix);
+                        }
+                    else if (answer == 3)
+                        {
+                        Console.WriteLine("Du vill svara senare");
                         }
                     }
                 }

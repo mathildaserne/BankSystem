@@ -8,6 +8,7 @@ namespace BankSystem
         {
         static void Main(string[] args)
             {
+            
             new InputOutput();
 
             //View.InputOutput.menu();
