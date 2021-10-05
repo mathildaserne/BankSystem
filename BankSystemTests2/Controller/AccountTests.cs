@@ -7,11 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using BankSystem.Model;
 
-
 namespace BankSystem.Controller.Tests
     {
-
-
     [TestClass()]
     public class AccountTests
         {
@@ -107,5 +104,20 @@ namespace BankSystem.Controller.Tests
             var expected = RemoveAccount();
             Assert.AreNotEqual(expected,actual);
             }
+
+        [TestMethod()] // RemoveAccount test
+        public void IfPasswordIsSame()
+        {
+            var userBank = RemoveAccount();
+            var actual = userBank.Password = "zia123";
+            Assert.AreEqual(actual, "zia123");
         }
+        [TestMethod()] // RemoveAccount test
+        public void IfPasswordIsNotSame()
+        {
+            var userBank = RemoveAccount();
+            var actual = userBank.Password = "ziaaaa";
+            Assert.AreNotEqual(actual, "zia123");
+        }
+    }
     }
