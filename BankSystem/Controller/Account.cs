@@ -45,16 +45,15 @@ namespace BankSystem.Controller
                     }
                 }
             }
-
         public static void Salary(List<User> salaryList)
             {
-         
             Console.Write("Ange usernamn: ");
             var name = Console.ReadLine();
             Console.Write("Ange kontonummer: ");
             var account = (Console.ReadLine());
             Console.Write("Ange lön: ");
             double salary = InputsController.inputDoubleControllar();
+            var loop = true;
 
             for (int i = 0; i < salaryList.Count; i++)
                 {
@@ -63,11 +62,12 @@ namespace BankSystem.Controller
                     var total = salaryList[i].Balance + salary;
                     salaryList[i].Balance = total;
                     Console.WriteLine($"{name}s lön är betalat...");
+                    loop = false;
                     }
-                else
-                    {
-                    Console.WriteLine("Fel införmation.");
-                    }
+                }
+            if (loop)
+                {
+                Console.WriteLine("Fel införmation.");
                 }
             }
         }
