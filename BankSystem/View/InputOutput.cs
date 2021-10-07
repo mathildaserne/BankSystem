@@ -22,6 +22,7 @@ namespace BankSystem.View
             Console.WriteLine("========================================================================================================================\n");
             Console.ForegroundColor = ConsoleColor.White;
             }
+
         public void displayLogo(string meddelande)
             {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -42,7 +43,6 @@ namespace BankSystem.View
             Console.WriteLine();
             Console.WriteLine("=======================================================================================================================\n");
             Console.ForegroundColor = ConsoleColor.White;
-
             }
 
         public List<User> changeUserRoleSalary = new List<User>();
@@ -51,19 +51,18 @@ namespace BankSystem.View
         public InputOutput()
             {
             userBank.Add(new User
-                { UserName = "mathilda",Password = "mathilda123",Balance = 20000,Salary = 38000,Role = "Frontend",AccountNumber = "1212-1" });
+                { UserName = "mathilda",Password = "mathilda123",Balance = 20000,Salary = 38000,Role = "Frontend",AccountNumber = 2021 });
             userBank.Add(new User
-                { UserName = "zia",Password = "zia123",Balance = 10000,Salary = 40000,Role = "Backende",AccountNumber = "1212-2" });
+                { UserName = "zia",Password = "zia123",Balance = 10000,Salary = 40000,Role = "Backende",AccountNumber = 2022 });
             Logo();
             menu();
             }
 
-        public void menu()
+        public int menu()
             {
             var loop = true;
             while (loop)
                 {
-
                 Console.WriteLine("Vänligen välja en funktion\n\n" +
                     "[1] Logga in som Admin\n" +
                     "[2] Logga in som User\n" +
@@ -90,6 +89,7 @@ namespace BankSystem.View
                     InputsController.inputIntControllar();
                     }
                 }
+            return menu();
             }
 
         public void adminLogIn()
@@ -124,9 +124,9 @@ namespace BankSystem.View
         public void userLogIn()
             {
             Console.Write("Usernamn: ");
-            string nameChk = Console.ReadLine();
+            string nameChk = Console.ReadLine().ToLower();
             Console.Write("Lösenord: ");
-            string passwordChk = Console.ReadLine();
+            string passwordChk = Console.ReadLine().ToLower();
             var loop = true;
             for (int i = 0; i < userBank.Count; i++)
                 {
@@ -297,9 +297,9 @@ namespace BankSystem.View
         public void changeRoleSalary()
             {
             Console.Write("Usernamn: ");
-            string userChk = Console.ReadLine();
+            string userChk = Console.ReadLine().ToLower();
             Console.Write("Password: ");
-            string passwordChk = Console.ReadLine();
+            string passwordChk = Console.ReadLine().ToLower();
 
             for (int ix = 0; ix < changeUserRoleSalary.Count; ix++)
                 {
@@ -317,13 +317,13 @@ namespace BankSystem.View
                     if (answer == 1)
                         {
                         Console.Write("Usernamn: ");
-                        string name = Console.ReadLine();
+                        string name = Console.ReadLine().ToLower();
                         Console.Write("Password: ");
-                        string password = Console.ReadLine();
+                        string password = Console.ReadLine().ToLower();
                         Console.Write("Salary: ");
                         double salaryChk = InputsController.inputDoubleControllar();
                         Console.Write("Rolle: ");
-                        string roleChk = Console.ReadLine();
+                        string roleChk = Console.ReadLine().ToLower();
 
                         for (int i = 0; i < userBank.Count; i++)
                             {
