@@ -1,6 +1,4 @@
-﻿using BankSystem.View;
-using BankSystem.Model;
-using BankSystem.Controller;
+﻿using BankSystem.Model;
 using System;
 using System.Collections.Generic;
 
@@ -10,6 +8,7 @@ namespace BankSystem.Controller
         {
         public static void createAccount(List<User> newList)
             {
+            var loop = true;
             Console.Write("Usernamn: ");
             string userName = Console.ReadLine();
             Console.Write("Password: ");
@@ -19,10 +18,21 @@ namespace BankSystem.Controller
             Console.Write("Lön: ");
             double salary = InputsController.inputDoubleControllar();
             Console.Write("Kotonummer: ");
-            string accoundNumber = Console.ReadLine();
-            
-            newList.Add(
-                new User { UserName = userName,Password = password,Role = role,Salary = salary,AccountNumber = accoundNumber });
+            int accoundNumber = InputsController.inputIntControllar();
+            for (int i = 0; i < newList.Count; i++)
+                {
+                if (newList[i].UserName == userName || newList[i].AccountNumber == accoundNumber)
+                    {
+                    Console.WriteLine("Username eller Kontonummer finns med.");
+                    loop = false;
+                    }
+                }
+            if (loop)
+                {
+                newList.Add(
+                        new User { UserName = userName,Password = password,Role = role,Salary = salary,AccountNumber = accoundNumber });
+                Console.WriteLine("Konto har skapat");
+                }
             }
 
         public static void removeAccount(List<User> newList)
@@ -46,12 +56,13 @@ namespace BankSystem.Controller
                 Console.WriteLine("User finns inte med");
                 }
             }
+
         public static void Salary(List<User> salaryList)
             {
             Console.Write("Ange usernamn: ");
             var name = Console.ReadLine();
             Console.Write("Ange kontonummer: ");
-            var account = (Console.ReadLine());
+            var account = InputsController.inputIntControllar();
             Console.Write("Ange lön: ");
             double salary = InputsController.inputDoubleControllar();
             var loop = true;
