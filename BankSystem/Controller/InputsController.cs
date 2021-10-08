@@ -2,6 +2,9 @@
 
 namespace BankSystem.Controller
     {
+    /// <summary>
+    /// Check the inputs for double
+    /// </summary>
     internal class InputsController
         {
         public static double inputDoubleControllar()
@@ -14,6 +17,10 @@ namespace BankSystem.Controller
             return check;
             }
 
+        /// <summary>
+        /// Check the inputs for int
+        /// </summary>
+        /// <returns> </returns>
         public static int inputIntControllar()
             {
             int check;
