@@ -10,7 +10,7 @@ namespace BankSystem.View.Tests
             {
             var userBank = new User
                 {
-                UserName = "zia",
+                UserName = "zia1",
                 Password = "zia123",
                 Balance = 10000,
                 Salary = 40000,
@@ -41,7 +41,7 @@ namespace BankSystem.View.Tests
         public void If_UserName_correct()
             {
             var userBank = UserList();
-            var actual = userBank.UserName = "zia";
+            var actual = userBank.UserName = "zia1";
             var expected = UserList();
             Assert.AreEqual(expected.UserName,actual);
             }

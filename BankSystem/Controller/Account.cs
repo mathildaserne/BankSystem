@@ -7,15 +7,15 @@ namespace BankSystem.Controller
     {
     public class Account
         {
-        public static void createAccount(List<User> newList) //
+        public static void createAccount(List<User> newList) 
             {
             var loop = true;
             Console.Write("Usernamn: ");
-            string userName = Console.ReadLine();
+            string userName = Console.ReadLine().ToLower();
             Console.Write("Password: ");
-            string password = Console.ReadLine();
+            string password = Console.ReadLine().ToLower();
             Console.Write("Rolle: ");
-            string role = Console.ReadLine();
+            string role = Console.ReadLine().ToLower();
             Console.Write("Lön: ");
             double salary = InputsController.inputDoubleControllar();
             Console.Write("Kotonummer: ");
@@ -27,20 +27,17 @@ namespace BankSystem.Controller
                     Console.WriteLine("Username eller Kontonummer finns med.");
                     loop = false;
                     }
-                }
-            if (loop)
-                {
-                if (!userName.Any(Char.IsLetter) || !password.Any(Char.IsDigit))
+                else if (!userName.Any(Char.IsLetter) || !userName.Any(Char.IsDigit) || !password.Any(Char.IsLetter) || !password.Any(Char.IsDigit))
                 {
                     Console.WriteLine("Username och password måste bestå av både text och siffror.");
                     loop = false;
                 }
-                else
+            }
+            if (loop)
                 {
                     newList.Add(
                             new User { UserName = userName, Password = password, Role = role, Salary = salary, AccountNumber = accoundNumber });
                     Console.WriteLine("Konto har skapat");
-                }
                 }
             }
 
