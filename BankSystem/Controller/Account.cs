@@ -1,12 +1,13 @@
 ﻿using BankSystem.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BankSystem.Controller
     {
     public class Account
         {
-        public static void createAccount(List<User> newList)
+        public static void createAccount(List<User> newList) //
             {
             var loop = true;
             Console.Write("Usernamn: ");
@@ -29,9 +30,17 @@ namespace BankSystem.Controller
                 }
             if (loop)
                 {
-                newList.Add(
-                        new User { UserName = userName,Password = password,Role = role,Salary = salary,AccountNumber = accoundNumber });
-                Console.WriteLine("Konto har skapat");
+                if (!userName.Any(Char.IsLetter) || !password.Any(Char.IsDigit))
+                {
+                    Console.WriteLine("Username och password måste bestå av både text och siffror.");
+                    loop = false;
+                }
+                else
+                {
+                    newList.Add(
+                            new User { UserName = userName, Password = password, Role = role, Salary = salary, AccountNumber = accoundNumber });
+                    Console.WriteLine("Konto har skapat");
+                }
                 }
             }
 
