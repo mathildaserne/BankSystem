@@ -83,27 +83,10 @@ namespace BankSystem.Controller
         /// <param name="salaryList"> List av userBank that have accounts </param>
         public static void Salary(List<User> salaryList)
             {
-            Console.Write("Ange usernamn: ");
-            var name = Console.ReadLine();
-            Console.Write("Ange kontonummer: ");
-            var account = InputsController.inputIntControllar();
-            Console.Write("Ange lön: ");
-            double salary = InputsController.inputDoubleControllar();
-            var loop = true;
-
             for (int i = 0; i < salaryList.Count; i++)
                 {
-                if (salaryList[i].UserName == name && salaryList[i].AccountNumber == account && salaryList[i].Salary == salary)
-                    {
-                    var total = salaryList[i].Balance + salary;
-                    salaryList[i].Balance = total;
-                    Console.WriteLine($"{name}s lön är betalat...");
-                    loop = false;
-                    }
-                }
-            if (loop)
-                {
-                Console.WriteLine("Fel införmation.");
+                salaryList[i].Balance += salaryList[i].Salary;
+                Console.WriteLine($"{salaryList[i].UserName}s lön är betalat...");
                 }
             }
         }
