@@ -1,27 +1,27 @@
-name: .NET    
+name: .NET                              # Namnet på workflow
      
 
 
-on:                          # Triggar workflow on push eller pull request, Men endast för main branch.
+on:                                              # Fårn 5 -7 Triggar workflow on push eller pull request, Men endast för main branch.
   push:
     branches: [ master ]
-  pull_request:
+  pull_request:                                   #Pull_requst till  [Master branch] 
     branches: [ master ]
 
-jobs:
+jobs:                                             # Jobs- skapade build.
   build:
 
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
+    runs-on: ubuntu-latest                        # type av maskinen som körde jobs.
+    
+    steps:                                        # Steps är en del av jobs, steps används för att konfigurera och slutföra ett jobb, .
+    - uses: actions/checkout@v2                   # Steps körs i viss ordning. Från 17 - 26.
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 5.0.x                     # exakt version av en dotnet -version
     - name: Restore dependencies
       run: dotnet restore
-    - name: Build
+    - name: Build                                 # Namnet på Build 
       run: dotnet build --no-restore
-    - name: Test
+    - name: Test                                  # Namnet på test 
       run: dotnet test --no-build --verbosity normal
