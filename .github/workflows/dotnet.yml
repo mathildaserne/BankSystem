@@ -1,6 +1,8 @@
-name: .NET
+name: .NET    
+     
 
-on:
+
+on:                          # Triggar workflow on push eller pull request, Men endast för main branch.
   push:
     branches: [ master ]
   pull_request:
