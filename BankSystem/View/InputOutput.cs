@@ -8,6 +8,9 @@ namespace BankSystem.View
     {
     public class InputOutput
         {
+        /// <summary>
+        ///Welcome logo for the first time
+        /// </summary>
         public void Logo()
             {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -48,16 +51,23 @@ namespace BankSystem.View
         public List<User> changeUserRoleSalary = new List<User>();
         public List<User> userBank = new List<User>();
 
+        /// <summary>
+        /// List userBank to add the users.
+        /// </summary>
         public InputOutput()
             {
             userBank.Add(new User
-                { UserName = "mathilda1",Password = "mathilda123",Balance = 20000,Salary = 38000,Role = "frontend",AccountNumber = 2021 });
+                { UserName = "zia1",Password = "zia123",Balance = 10000,Salary = 40000,Role = "backende",AccountNumber = 2020 });
             userBank.Add(new User
-                { UserName = "zia1",Password = "zia123",Balance = 10000,Salary = 40000,Role = "backende",AccountNumber = 2022 });
+                { UserName = "mathilda1",Password = "mathilda123",Balance = 20000,Salary = 38000,Role = "frontend",AccountNumber = 2021 });
             Logo();
             menu();
             }
 
+        /// <summary>
+        /// Menu and options to log in same admin or user and to exit.
+        /// </summary>
+        /// <returns> </returns>
         public int menu()
             {
             var loop = true;
@@ -85,13 +95,14 @@ namespace BankSystem.View
                     System.Environment.Exit(1);
                     }
                 else
-                    {
-                    InputsController.inputIntControllar();
-                    }
+                    { InputsController.inputIntControllar(); }
                 }
             return menu();
             }
 
+        /// <summary>
+        /// Check the username/password to log in som admin.
+        /// </summary>
         public void adminLogIn()
             {
             var userName = "admin1";
@@ -111,16 +122,15 @@ namespace BankSystem.View
                     adminMenu();
                     }
                 else
-                    {
-                    Console.WriteLine("Fel lösenord försök igen");
-                    }
+                    { Console.WriteLine("Fel lösenord försök igen"); }
                 }
             else
-                {
-                Console.WriteLine("Fel usernamn försök igen");
-                }
+                { Console.WriteLine("Fel usernamn försök igen"); }
             }
 
+        /// <summary>
+        /// Check the username/password to log in som user.
+        /// </summary>
         public void userLogIn()
             {
             Console.Write("Usernamn: ");
@@ -144,6 +154,9 @@ namespace BankSystem.View
                 }
             }
 
+        /// <summary>
+        /// Menu for admin with same options and List to add the admin information
+        /// </summary>
         public void adminMenu()
             {
             var admin = new List<Admin>(){
@@ -169,17 +182,11 @@ namespace BankSystem.View
                         }
                     }
                 else if (userInput == 2)
-                    {
-                    userMenu();
-                    }
+                    { adminUserMenu(); }
                 else if (userInput == 3)
-                    {
-                    Controller.Account.Salary(userBank);
-                    }
+                    { Controller.Account.Salary(userBank); }
                 else if (userInput == 4)
-                    {
-                    Controller.Account.createAccount(userBank);
-                    }
+                    { Controller.Account.createAccount(userBank); }
                 else if (userInput == 5)
                     {
                     loop = false;
@@ -188,12 +195,15 @@ namespace BankSystem.View
                     menu();
                     }
                 else
-                    {
-                    InputsController.inputIntControllar();
-                    }
+                    { InputsController.inputIntControllar(); }
                 }
             }
 
+        /// <summary>
+        /// Menu for users with same options
+        /// </summary>
+        /// <param name="nameChk"> Chek the input for username. </param>
+        /// <param name="passwordChk"> Chek the input for password. </param>
         public void userMenu(string nameChk,string passwordChk)
             {
             var userloop = true;
@@ -253,7 +263,10 @@ namespace BankSystem.View
                 }
             }
 
-        public void userMenu()
+        /// <summary>
+        /// Menu for admin to control users
+        /// </summary>
+        public void adminUserMenu()
             {
             for (int ix = 0; ix < userBank.Count; ix++)
                 {
@@ -294,21 +307,27 @@ namespace BankSystem.View
                 }
             }
 
+        /// <summary>
+        /// Addmin se changes from user and to accept it or reject it .
+        /// </summary>
         public void changeRoleSalary()
             {
             Console.Write("Usernamn: ");
             string userChk = Console.ReadLine().ToLower();
             Console.Write("Password: ");
             string passwordChk = Console.ReadLine().ToLower();
-
+            var loop = true;
             for (int ix = 0; ix < changeUserRoleSalary.Count; ix++)
                 {
+                //if (changeUserRoleSalary[ix].UserName != userChk && changeUserRoleSalary[ix].Password != passwordChk)
+                //      {
+                //      Console.WriteLine("Fel usernamn eller password.");
+                //      }
                 if (changeUserRoleSalary[ix].UserName == userChk && changeUserRoleSalary[ix].Password == passwordChk)
                     {
                     Console.WriteLine($"Usernamn:\t {changeUserRoleSalary[ix].UserName} \n" +
-                                      $"Lön:\t {changeUserRoleSalary[ix].Salary} \n" +
-                                      $"Roll:\t {changeUserRoleSalary[ix].Role}");
-
+                                      $"Lön:\t\t {changeUserRoleSalary[ix].Salary} \n" +
+                                      $"Roll:\t\t {changeUserRoleSalary[ix].Role}");
                     Console.WriteLine("\n[1] För att tacka ja" +
                                       "\n[2] För att tacka nej" +
                                       "\n[3] För att svara senare");
@@ -316,21 +335,12 @@ namespace BankSystem.View
 
                     if (answer == 1)
                         {
-                        Console.Write("Usernamn: ");
-                        string name = Console.ReadLine().ToLower();
-                        Console.Write("Password: ");
-                        string password = Console.ReadLine().ToLower();
-                        Console.Write("Salary: ");
-                        double salaryChk = InputsController.inputDoubleControllar();
-                        Console.Write("Rolle: ");
-                        string roleChk = Console.ReadLine().ToLower();
-
                         for (int i = 0; i < userBank.Count; i++)
                             {
-                            if (userBank[i].UserName == name && userBank[i].Password == password)
+                            if (userBank[i].UserName == userChk && userBank[i].Password == passwordChk)
                                 {
-                                userBank[i].Salary = salaryChk;
-                                userBank[i].Role = roleChk;
+                                userBank[i].Salary = changeUserRoleSalary[ix].Salary;
+                                userBank[i].Role = changeUserRoleSalary[ix].Role;
                                 Console.WriteLine("Du har tackat ja");
                                 changeUserRoleSalary.RemoveAt(ix);
                                 }
@@ -345,7 +355,12 @@ namespace BankSystem.View
                         {
                         Console.WriteLine("Du vill svara senare");
                         }
+                    loop = false;
                     }
+                }
+            if (loop)
+                {
+                Console.WriteLine("Fel username,password eller inget begäran!");
                 }
             }
         }

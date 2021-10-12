@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace BankSystem.Model
-    {
+﻿namespace BankSystem.Model
+    {/// <summary>
+     /// Admin class save the admin informations </summary>
     public class Admin
         {
         public string UserName { get; set; }
