@@ -316,9 +316,13 @@ namespace BankSystem.View
             string userChk = Console.ReadLine().ToLower();
             Console.Write("Password: ");
             string passwordChk = Console.ReadLine().ToLower();
-
+            var loop = true;
             for (int ix = 0; ix < changeUserRoleSalary.Count; ix++)
                 {
+                //if (changeUserRoleSalary[ix].UserName != userChk && changeUserRoleSalary[ix].Password != passwordChk)
+                //      {
+                //      Console.WriteLine("Fel usernamn eller password.");
+                //      }
                 if (changeUserRoleSalary[ix].UserName == userChk && changeUserRoleSalary[ix].Password == passwordChk)
                     {
                     Console.WriteLine($"Usernamn:\t {changeUserRoleSalary[ix].UserName} \n" +
@@ -348,8 +352,15 @@ namespace BankSystem.View
                         changeUserRoleSalary.RemoveAt(ix);
                         }
                     else if (answer == 3)
-                        { Console.WriteLine("Du vill svara senare"); }
+                        {
+                        Console.WriteLine("Du vill svara senare");
+                        }
+                    loop = false;
                     }
+                }
+            if (loop)
+                {
+                Console.WriteLine("Fel username,password eller inget begäran!");
                 }
             }
         }

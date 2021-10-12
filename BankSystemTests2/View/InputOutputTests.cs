@@ -254,14 +254,5 @@ namespace BankSystem.View.Tests
             var expected = role.Role = "CO";
             Assert.AreNotEqual(expected,actual);
             }
-
-        //[TestMethod()]
-        //public void Change_User_Salary()
-        //    {
-        //    var salary = UserList();
-        //    var actual = salary.Salary = 40000;
-        //    var expected = salary.Salary = 50000;
-        //    Assert.AreNotEqual(expected,actual);
-        //    }
         }
     }
